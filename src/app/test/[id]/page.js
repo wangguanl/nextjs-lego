@@ -1,5 +1,7 @@
-import Image from 'next/image';
 import { notFound } from 'next/navigation';
+export const metadata = {
+  title: 'test',
+};
 export default function Index() {
   const rand = Math.random();
   if (rand < 0.5) {
