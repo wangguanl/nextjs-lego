@@ -27,7 +27,8 @@ export default function MyApp({ id }) {
   return (
     <micro-app
       name="lego-app"
-      url={'http://localhost:9990/'}
+      // url={'http://localhost:9990/'}
+      url={'https://page-lego-micro.vercel.app/'}
       iframe
       class="h-full w-full overflow-hidden p-2"
       onMounted={() => {
