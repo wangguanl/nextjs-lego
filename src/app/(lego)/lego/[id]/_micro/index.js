@@ -3,9 +3,7 @@ import { useEffect, useState } from 'react';
 import microApp from '@micro-zoe/micro-app';
 import { getSchema } from '@/app/(lego)/_api/schema';
 import './style.css';
-/** @jsxRuntime classic */
-/** @jsx jsxCustomEvent */
-import jsxCustomEvent from '@micro-zoe/micro-app/polyfill/jsx-custom-event';
+
 export default function MyApp({ id }) {
   const [status, setStatus] = useState(false);
   const [schema, setSchema] = useState({});
@@ -27,14 +25,14 @@ export default function MyApp({ id }) {
   return (
     <micro-app
       name="lego-app"
-      // url={'http://localhost:9990/'}
-      url={'https://page-lego-micro.vercel.app/'}
-      iframe
+      url={'http://localhost:9990/'}
+      // url={'https://page-lego-micro.vercel.app/'}
       class="h-full w-full overflow-hidden p-2"
       onMounted={() => {
         console.log('已经渲染完成');
         setStatus(true);
       }}
+      iframe
       keep-alive
     />
   );

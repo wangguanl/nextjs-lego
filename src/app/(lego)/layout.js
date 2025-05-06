@@ -2,17 +2,12 @@
 import Layout from './_components/layout';
 import LegoProvider from './_components/provider';
 // import Store from './_components/store';
-import { useState, createContext, useContext, useEffect } from 'react';
+import { useEffect } from 'react';
 import microApp from '@micro-zoe/micro-app';
-/** @jsxRuntime classic */
-/** @jsx jsxCustomEvent */
-import jsxCustomEvent from '@micro-zoe/micro-app/polyfill/jsx-custom-event';
 import { addSchema } from '@/app/(lego)/_api/schema';
 
-const MicroAppContext = createContext();
-
+const microApp = await import('@micro-zoe/micro-app');
 export default function LegoLayout({ children }) {
-  const [microAppListenerData, setMicroAppListenerData] = useState({});
   useEffect(() => {
     // 初始化micro-app
     microApp.start({
@@ -37,19 +32,17 @@ export default function LegoLayout({ children }) {
           console.log(res);
         })();
       }
-      setMicroAppListenerData({ type, data });
     });
   }, []);
   return (
     // <Store>
     <LegoProvider>
       <Layout>
-        <MicroAppContext.Provider value={microAppListenerData}>
-          {children}
-        </MicroAppContext.Provider>
+        {/* <MicroAppContext.Provider value={microAppListenerData}> */}
+        {children}
+        {/* </MicroAppContext.Provider> */}
       </Layout>
     </LegoProvider>
     // </Store>
   );
 }
-export const useMicroAppProvider = () => useContext(MicroAppContext);
