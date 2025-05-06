@@ -1,21 +1,25 @@
 'use client';
-import Link from 'next/link';
-import { Space, Table } from 'antd';
-import axios from 'axios';
+import { Space, Table, Popconfirm } from 'antd';
 import { useState, useEffect } from 'react';
+import { getPageList, deletePageList } from '../_api/pages';
+import { useRouter } from 'next/navigation';
+import { useLegoProvider } from '@/app/(lego)/_components/provider';
 export default function List() {
   const [list, setList] = useState([]);
+  const Router = useRouter();
+  const legoReducer = useLegoProvider();
+
   useEffect(() => {
     (async () => {
-      const { data } = await axios.get('/pages');
+      const data = await getPageList();
       setList(data);
     })();
   }, []);
   const columns = [
     {
       title: 'Name',
-      dataIndex: 'name',
-      key: 'name',
+      dataIndex: 'title',
+      key: 'title',
       render: text => <a>{text}</a>,
     },
     {
@@ -32,19 +36,39 @@ export default function List() {
       title: 'Action',
       key: 'action',
       render: (_, record) => (
-        <Space size="middle">
-          <a href={`/preview/${record.key}`} target="_blank">
-            Preview
-          </a>
-          <Link href={`/lego/${record.key}`}>Edit</Link>
-          <a
-            href="javascript:;"
+        <Space size="middle" className="cursor-pointer">
+          {/* <a href={`/preview/${record.key}`} target="_blank">
+            预览
+          </a> */}
+          <span
             onClick={() => {
-              console.log('delete');
+              const path = `/lego/${record.key}`;
+              legoReducer.dispatch({
+                type: 'ADD',
+                route: {
+                  path,
+                  name: '页面搭建' + record.title,
+                  meta: { title: '页面搭建' },
+                },
+              });
+              Router.push(path);
             }}
           >
-            Delete
-          </a>
+            编辑
+          </span>
+
+          <Popconfirm
+            title="Delete the task"
+            description="确定要删除吗?"
+            onConfirm={async () => {
+              const data = await deletePageList({ id: record.key });
+              setList(data);
+            }}
+            okText="确定"
+            cancelText="取消"
+          >
+            删除
+          </Popconfirm>
         </Space>
       ),
     },

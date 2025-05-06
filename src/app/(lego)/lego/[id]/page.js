@@ -1,12 +1,18 @@
-export const generateMetadata = async ({ params }) => {
+// 'use client';
+/* export const generateMetadata = async ({ params }) => {
   const { id } = await params;
   return {
     title: '页面搭建 - ' + id,
     description: '页面搭建 - ' + id,
   };
-};
-export default async function Lego({ params }) {
-  // console.log(params);
+}; */
+import Micro from './_micro';
+// import EventTouch from './_eventTouch';
+export default async function Lego({ params, children }) {
   const { id } = await params;
-  return <div>Lego {id}</div>;
+  return (
+    // <EventTouch id={id}>
+    <Micro id={id} key={id} />
+    // </EventTouch>
+  );
 }

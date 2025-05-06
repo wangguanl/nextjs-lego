@@ -7,7 +7,7 @@ import useLocalStorage from '@/app/(lego)/_hooks/useStorage';
 import useRoute from '@/app/(lego)/_hooks/useRoute';
 import { isEqual } from 'lodash-es';
 
-const Lego = createContext();
+const LegoContext = createContext();
 export default function Provider({ children }) {
   const path = usePathname();
 
@@ -18,7 +18,11 @@ export default function Provider({ children }) {
 
   // 初始化执行
   useEffect(() => {
-    if (Object.keys(legoState).length && !isEqual(legoState, viewTags)) {
+    if (
+      legoState &&
+      Object.keys(legoState).length &&
+      !isEqual(legoState, viewTags)
+    ) {
       dispatch({
         type: 'SET',
         viewTags: legoState,
@@ -34,8 +38,10 @@ export default function Provider({ children }) {
   }, [viewTags]);
 
   return (
-    <Lego.Provider value={{ viewTags, dispatch }}>{children}</Lego.Provider>
+    <LegoContext.Provider value={{ viewTags, dispatch }}>
+      {children}
+    </LegoContext.Provider>
   );
 }
 
-export const useLegoProvider = () => useContext(Lego);
+export const useLegoProvider = () => useContext(LegoContext);

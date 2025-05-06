@@ -4,6 +4,7 @@ import { nanoid } from 'nanoid';
 import { Button, Modal, Input } from 'antd';
 import { useRouter } from 'next/navigation';
 import { useLegoProvider } from '@/app/(lego)/_components/provider';
+import { addPageList } from '../_api/pages';
 // import { useSelector, useDispatch } from 'react-redux';
 // import { ADD_viewTag } from '@/app/(lego)/_store/slices/lego';
 
@@ -22,16 +23,25 @@ export default function ControlBar() {
       <Modal
         title="请输入标题"
         open={open}
-        onOk={() => {
-          const path = `/lego/${nanoid()}`;
+        onOk={async () => {
+          if (!title) {
+            return;
+          }
+          const id = nanoid();
+          const path = `/lego/${id}`;
           legoReducer.dispatch({
             type: 'ADD',
             route: {
               path,
-              name: '页面列表-创建-' + title,
-              meta: { title: '页面列表-创建' },
+              name: '页面搭建' + title,
+              meta: { title: '页面搭建' },
             },
           });
+          const data = await addPageList({
+            id,
+            title,
+          });
+          console.log(data);
           /* Dispatch(
             ADD_viewTag({
             })
