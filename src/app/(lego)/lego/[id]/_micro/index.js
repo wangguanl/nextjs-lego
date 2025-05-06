@@ -25,8 +25,8 @@ export default function MyApp({ id }) {
   return (
     <micro-app
       name="lego-app"
-      url={'http://localhost:9990/'}
-      // url={'https://page-lego-micro.vercel.app/'}
+      // url={'http://localhost:9990/'}
+      url={'https://page-lego-micro.vercel.app/'}
       class="h-full w-full overflow-hidden p-2"
       onMounted={() => {
         console.log('已经渲染完成');

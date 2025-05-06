@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 import microApp from '@micro-zoe/micro-app';
 import { addSchema } from '@/app/(lego)/_api/schema';
 
-const microApp = await import('@micro-zoe/micro-app');
+// const microApp = await import('@micro-zoe/micro-app');
 export default function LegoLayout({ children }) {
   useEffect(() => {
     // 初始化micro-app
