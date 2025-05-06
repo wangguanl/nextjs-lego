@@ -1,19 +1,13 @@
-'use client';
 import {
   AppstoreOutlined,
-  ContainerOutlined,
   DesktopOutlined,
   MailOutlined,
   PieChartOutlined,
 } from '@ant-design/icons';
-import { Menu } from 'antd';
-import { usePathname, useRouter } from 'next/navigation';
-// import Router from 'next/router';
-// import { asyncRouterMap, constantRouterMap } from '../router';
-const items = [
+export const routes = [
   { key: '/dashboard', icon: <PieChartOutlined />, label: '页面列表' },
   { key: '/customComponents', icon: <DesktopOutlined />, label: '自定义组件' },
-  {
+  /* {
     key: 'sub1',
     label: 'Navigation One',
     icon: <MailOutlined />,
@@ -40,21 +34,5 @@ const items = [
         ],
       },
     ],
-  },
+  }, */
 ];
-export default function MenuList(props) {
-  const Router = useRouter();
-  const { collapsed } = props;
-  return (
-    <Menu
-      defaultSelectedKeys={usePathname()}
-      mode="inline"
-      inlineCollapsed={collapsed}
-      items={items}
-      onClick={({ key }) => {
-        Router.push(key);
-      }}
-      className="w-full"
-    />
-  );
-}

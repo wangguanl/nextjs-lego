@@ -12,7 +12,10 @@ export default function LayoutComponent({ children }) {
   };
   return (
     <Layout id="app">
-      <Sider width={!collapsed ? '15%' : '80px'} className="p-0 bg-white">
+      <Sider
+        width={!collapsed ? '200px' : '80px'}
+        className="p-0 bg-white w-[200px]"
+      >
         <Menu collapsed={collapsed} />
       </Sider>
       <Layout>

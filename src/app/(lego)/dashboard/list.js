@@ -1,7 +1,16 @@
 'use client';
 import Link from 'next/link';
 import { Space, Table } from 'antd';
+import axios from 'axios';
+import { useState, useEffect } from 'react';
 export default function List() {
+  const [list, setList] = useState([]);
+  useEffect(() => {
+    (async () => {
+      const { data } = await axios.get('/pages');
+      setList(data);
+    })();
+  }, []);
   const columns = [
     {
       title: 'Name',
@@ -40,28 +49,5 @@ export default function List() {
       ),
     },
   ];
-  const data = [
-    {
-      key: '1',
-      name: 'John Brown',
-      visited: 32,
-      address: 'New York No. 1 Lake Park',
-      tags: ['nice', 'developer'],
-    },
-    {
-      key: '2',
-      name: 'Jim Green',
-      visited: 42,
-      address: 'London No. 1 Lake Park',
-      tags: ['loser'],
-    },
-    {
-      key: '3',
-      name: 'Joe Black',
-      visited: 32,
-      address: 'Sydney No. 1 Lake Park',
-      tags: ['cool', 'teacher'],
-    },
-  ];
-  return <Table className="mt-2" columns={columns} dataSource={data} />;
+  return <Table className="mt-2" columns={columns} dataSource={list} />;
 }
